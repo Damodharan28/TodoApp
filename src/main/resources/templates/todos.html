@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Todo List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+    <a class="navbar-brand" href="/todos">Todo App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <button class="btn btn-light rounded-pill px-3 font-weight-semibold"
+                style="background-color:#ffffff; color:#007bff; border:none;">
+            <a class="nav-link p-0" href="/todos/add">+ Add Todo</a>
+        </button>
+    </div>
+</nav>
+
+<!-- ✅ Main Content -->
+<div class="container">
+    <h2 class="mb-3">Todo List</h2>
+
+    <!-- ✅ Filters + Sort -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Filter Buttons -->
+        <div>
+            <a class="btn btn-secondary btn-sm" href="/todos?filter=ALL">All</a>
+            <a class="btn btn-warning btn-sm" href="/todos?filter=PENDING">Pending</a>
+            <a class="btn btn-success btn-sm" href="/todos?filter=DONE">Done</a>
+        </div>
+
+        <!-- Sort Buttons -->
+        <div>
+            <a th:href="@{/todos(sort='asc', filter=${currentFilter})}"
+               class="btn btn-primary btn-sm"
+               th:classappend="${currentSort == 'asc'} ? ' active' : ''">
+                Sort by Oldest
+            </a>
+
+            <a th:href="@{/todos(sort='desc', filter=${currentFilter})}"
+               class="btn btn-primary btn-sm"
+               th:classappend="${currentSort == 'desc'} ? ' active' : ''">
+                Sort by Newest
+            </a>
+        </div>
+    </div>
+
+    <!-- ✅ Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="todo : ${todos}">
+            <td th:text="${todo.title}"></td>
+            <td th:text="${todo.status}"></td>
+            <td th:text="${#temporals.format(todo.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+            <td>
+                <a th:href="@{'/todos/edit/' + ${todo.id}}" class="btn btn-sm btn-info">Edit</a>
+                <a th:href="@{'/todos/delete/' + ${todo.id}}" class="btn btn-sm btn-danger">Delete</a>
+                <a th:if="${todo.status.name() == 'PENDING'}"
+                   th:href="@{'/todos/done/' + ${todo.id}}" class="btn btn-sm btn-success">Mark as Done</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ✅ Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
