@@ -1,6 +1,13 @@
 package com.example.todo.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -19,12 +26,11 @@ public class Todo {
 
     private String description;
 
+    public enum Status {PENDING, DONE}
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING;
 
     private LocalDateTime createdAt = LocalDateTime.now();
-
-    public enum Status {PENDING, DONE}
 
     //Getters and Setters
     public Long getId() {return id;}

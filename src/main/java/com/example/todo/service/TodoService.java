@@ -15,9 +15,23 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> getAllTodos() { return todoRepository.findAll(); }
-    public List<Todo> getTodosByStatus(Todo.Status status) {return todoRepository.findByStatus(status);}
-    public Todo saveTodo(Todo todo) {return todoRepository.save(todo);}
-    public Optional<Todo> getTodoById(Long id) { return todoRepository.findById(id);}
-    public void deleteTodo(Long id) { todoRepository.deleteById(id);}
+    public List<Todo> getAllTodos() {
+        return todoRepository.findAll();
+    }
+
+    public List<Todo> getTodosByStatus(Todo.Status status) {
+        return todoRepository.findByStatus(status);
+    }
+
+    public void saveTodo(Todo todo) {
+        todoRepository.save(todo);
+    }
+
+    public Optional<Todo> getTodoById(Long id) {
+        return todoRepository.findById(id);
+    }
+
+    public void deleteTodo(Long id) {
+        todoRepository.deleteById(id);
+    }
 }

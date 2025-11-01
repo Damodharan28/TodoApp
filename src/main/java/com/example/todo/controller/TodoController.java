@@ -18,7 +18,8 @@ public class TodoController {
 
     private final TodoService todoService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService)
+    {
         this.todoService = todoService;
     }
 
@@ -55,7 +56,9 @@ public class TodoController {
     }
 
     @GetMapping("/add")
-    public String showAddForm(Todo todo) { return "add-todo"; }
+    public String showAddForm(Todo todo) {
+        return "add-todo";
+    }
 
     @PostMapping("/add")
     public String addTodo(@Valid Todo todo, BindingResult result){
